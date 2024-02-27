@@ -7,6 +7,11 @@ work across any hardware.
 I just made this for fun. There's probably plenty of other well vetted
 solutions out there that do roughly the same thing. I didn't look. 
 
+## Example Configuration
+
+Below is an example of a four node setup. Below the diagram will explain
+what you should expect.
+
 ```mermaid
 flowchart LR;
     RP1[ext.a] -->|firewall| fw(firewall);
@@ -23,6 +28,11 @@ flowchart LR;
     F[Secondary #3] --> G[(Storage.C)];
     E[Secondary #2] --> H[(Storage.D)];
 ```
+
+1. `Storage.{A,B,C,D}` should all be eventually consistent.
+1. `main` is the only write destination. This will ensure consistency.
+1. `App.{a,b,c}` are all read-only apps. Can work from any node. Good for load distribution.
+1. Setup as `ext.{a,b}` as public, with `main` behind a firewall. Good for external applications.
 
 # Setup
 
