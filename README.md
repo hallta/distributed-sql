@@ -9,7 +9,7 @@ solutions out there that do roughly the same thing. I didn't look.
 
 ```mermaid
 graph TD;
-    A-->B;
+    main-->B;
     A-->C;
     B-->D;
     C-->D;
