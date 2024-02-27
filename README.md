@@ -7,6 +7,14 @@ work across any hardware.
 I just made this for fun. There's probably plenty of other well vetted
 solutions out there that do roughly the same thing. I didn't look. 
 
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 # Setup
 
 1. `python3 -m venv env`
