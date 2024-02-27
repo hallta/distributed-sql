@@ -1,0 +1,4 @@
+env
+*.sw[a-z]
+main.db
+__pycache__
