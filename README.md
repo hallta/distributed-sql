@@ -9,10 +9,11 @@ solutions out there that do roughly the same thing. I didn't look.
 
 ```mermaid
 graph TD;
-    main-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    rp_1->main;
+    rp_2->main;
+    main->repl1;
+    main->repl2;
+    repl2->repl3;
 ```
 
 # Setup
