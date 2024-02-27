@@ -34,7 +34,7 @@ flowchart LR;
 1. `App.{a,b,c}` are all read-only apps. Can work from any node. Good for load distribution.
 1. Setup as `ext.{a,b}` as public, with `main` behind a firewall. Good for external applications.
 
-# Setup
+## Setup
 
 1. `python3 -m venv env`
 1. `source env/bin/activate`
