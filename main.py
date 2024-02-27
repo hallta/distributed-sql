@@ -17,38 +17,26 @@ def get():
     conn = get_conn()
     cur = conn.cursor()
     cur.execute(data['sql'])
-    return json.dumps(cur.fetchall())
 
+    return cur.fetchall() 
 
 
 @app.route("/sql/1/put", methods=['POST'])
 def put():
     data = request.json
-    cur = db.cursor()
-    cur.execute(data['sql'], data['params'])
 
-    db.commit()
-    prepare_db()
+    conn = get_conn()
+    cur = conn.cursor()
 
-#   if path in redir_map:
-#       return redirect("https://" + redir_map[path], code=302)
-#   else:
-#       abort(404)
+    print(data['sql'])
+    print(data['params'])
+    cur.executemany(data['sql'], data['params'])
 
-
-"""
-@app.route('/save')
-def save():
-    path = request.args.get('p')
-    url = request.args.get('u')
-    redir_map[path] = url
-
-    config = open('config', 'a')
-    config.write(path + ':' + url + "\n")
-    config.close()
+    conn.commit()
+    conn.close()
 
     return "👍"
-"""
+
 
 def validate_config(config):
     """
@@ -78,9 +66,7 @@ def load_config():
     validate_config(config)
 
 
-def get_conn(conn = None):
-    if conn and conn is not None:
-        conn.close()
+def get_conn():
     return sqlite3.connect('main.db')
 
 
