@@ -1,8 +1,10 @@
 from flask import Flask, abort,request, redirect
 import json
+import requests
 import sqlite3
 
 app = Flask(__name__)
+config = {}
 
 
 @app.errorhandler(404)
@@ -28,14 +30,37 @@ def put():
     conn = get_conn()
     cur = conn.cursor()
 
-    print(data['sql'])
-    print(data['params'])
-    cur.executemany(data['sql'], data['params'])
+    sql = data['sql']
+    params = data['params']
+    cur.executemany(sql, params)
 
     conn.commit()
     conn.close()
 
+    federate(sql, params)
+
     return "👍"
+
+
+"""
+Non-HTTP Methods
+"""
+
+def federate(sql, params):
+    success = True
+    status = ""
+    if "secondary" in config:
+        success = False
+        for url in config['secondary']:
+            payload='"sql": "{}", "params": {}'.format(sql, json.dumps(params))
+            r = requests.post(url + "/sql/1/put",
+                              data='{' + payload + '}',
+                              headers={'content-type': 'application/json'})
+            status = status + str(r.status_code) + "|" + url
+            success = success and r.status_code == 200
+
+    print(status)
+    return success
 
 
 def validate_config(config):
@@ -62,6 +87,7 @@ def validate_config(config):
 
 
 def load_config():
+    global config
     config = json.loads(open("config.json", "r").read())
     validate_config(config)
 
