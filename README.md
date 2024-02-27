@@ -5,7 +5,7 @@ Intended to federate across an array of Raspberry Pi devices, but should
 work across any hardware.
 
 I just made this for fun. There's probably plenty of other well vetted
-solutions out there that do roughly the same thing. I didn't look. 
+solutions out there that do roughly the same thing. I didn't look.
 
 ## Example Configuration
 

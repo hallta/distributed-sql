@@ -48,6 +48,18 @@ Non-HTTP Methods
 """
 
 def federate(sql, params):
+    """
+    Will proxy the sql and params to all the configured secondary
+    servers.
+
+    @type     sql: string
+    @param    sql: The sql sent by the client
+    @type  params: list
+    @param params: The sql bind parameters
+
+    @rtype: boolean
+    @return: Boolean indicating success.
+    """
     success = True
     status = ""
     if "secondary" in config:
@@ -57,7 +69,7 @@ def federate(sql, params):
             r = requests.post(url + "/sql/1/put",
                               data='{' + payload + '}',
                               headers={'content-type': 'application/json'})
-            status = status + str(r.status_code) + "|" + url
+            status = status + str(r.status_code) + "|" + url + "\n"
             success = success and r.status_code == 200
 
     print(status)
