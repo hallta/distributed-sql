@@ -17,11 +17,11 @@ graph TD;
 
 ```mermaid
 flowchart LR;
-    RP1[🍓 ext.a] -->|firewall| fw(firewall);
-    RP2[🍓 ext.b] -->|firewall| fw(firewall);
-    app([📱 App.a]) -->|RO| F;
-    appb([📱 App.b]) -->|RO| A;
-    appc([📱 App.c]) -->|RO| fw;
+    RP1[ext.a] -->|firewall| fw(firewall);
+    RP2[ext.b] -->|firewall| fw(firewall);
+    app([App.a]) -->|RO| F;
+    appb([App.b]) -->|RO| A;
+    appc([pp.c]) -->|RO| fw;
     fw --> A;
     A[main] --> B[(Storage.A)];
     A[main] --> C[Secondary #1];
