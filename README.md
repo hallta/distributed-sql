@@ -8,6 +8,14 @@ I just made this for fun. There's probably plenty of other well vetted
 solutions out there that do roughly the same thing. I didn't look. 
 
 ```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+```mermaid
 flowchart LR;
     RP1[🍓 ext.a] -->|firewall| fw(firewall);
     RP2[🍓 ext.b] -->|firewall| fw(firewall);
