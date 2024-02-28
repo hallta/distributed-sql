@@ -41,6 +41,3 @@ flowchart LR;
 1. `pip install -r requirements.txt`
 1. Confirm contents of `config.json`
 1. `$(which flask) --app main run --port <port>`
-
-
-
