@@ -22,7 +22,7 @@ def home(path = 'index.html'):
     if os.path.isfile(src):
         return open(src).read()
     else:
-        abort(404)
+        return abort(404)
 
 
 @app.route("/<string:path>")
