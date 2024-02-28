@@ -39,6 +39,8 @@ flowchart LR;
 1. `python3 -m venv env`
 1. `source env/bin/activate`
 1. `pip install -r requirements.txt`
-1. `sudo $(which flask) --app main run --port 80`
+1. Confirm contents of `config.json`
+1. `$(which flask) --app main run --port <port>`
+
 
 
