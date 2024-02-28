@@ -38,7 +38,12 @@ def get():
     cur = conn.cursor()
     cur.execute(data['sql'])
 
-    return as_response(cur.fetchall())
+    res = as_response(cur.fetchall())
+
+    conn.commit()
+    conn.close()
+
+    return res
 
 
 @app.route("/sql/1/put", methods=['POST'])
@@ -50,9 +55,11 @@ def put():
 
     sql = data['sql']
     params = data['params']
-    cur.executemany(sql, params)
+    print(data)
+    cur.executemany(sql, params) if len(params) > 0 else cur.execute(sql, params)
 
     conn.commit()
+    cur.close()
     conn.close()
 
     federate(sql, params)
@@ -88,10 +95,10 @@ def federate(sql, params):
     if "secondary" in config:
         success = False
         for url in config['secondary']:
-            payload='"sql": "{}", "params": {}'.format(sql, json.dumps(params))
+            payload = '"sql": "{}", "params": {}'.format(sql, json.dumps(params))
             r = requests.post(url + "/sql/1/put",
-                              data='{' + payload + '}',
-                              headers={'content-type': 'application/json'})
+                              data = '{' + payload + '}',
+                              headers = {'content-type': 'application/json'})
             status = status + str(r.status_code) + "|" + url + "\n"
             success = success and r.status_code == 200
 
@@ -133,6 +140,7 @@ def get_conn():
 
 
 def startup():
+    get_conn()
     load_config()
 
 startup()
