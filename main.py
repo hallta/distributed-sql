@@ -16,6 +16,14 @@ def not_found(e):
 
 @app.route("/", methods=['GET'])
 def home(path = 'index.html'):
+    """
+    General method for static files. Defaults
+    to index.html, but is able to load anything
+    from the path paremeter.
+
+    @type  path: string
+    @param path: The string literal to the file to load
+    """
     root = os.path.abspath(os.path.dirname(__file__))
     src = os.path.join(root, 'www/{}'.format(path))
 
@@ -27,11 +35,23 @@ def home(path = 'index.html'):
 
 @app.route("/<string:path>")
 def files(path):
+    """
+    See def home()
+    """
     return home(path)
 
 
 @app.route("/sql/1/get", methods=['POST'])
 def get():
+    """
+    Will execute the SQL and return the results.
+    Should mimic the SQLite3 interface as much
+    as possible, with the exception of the general
+    payload, which is wrapped in JSON
+
+    @type  data['sql']: string
+    @param data['sql']: the sql to execute
+    """ 
     data = request.json
 
     conn = get_conn()
@@ -48,6 +68,10 @@ def get():
 
 @app.route("/sql/1/put", methods=['POST'])
 def put():
+    """
+    Non-read sql functions. Note - should likely 
+    just have one method that does everything.
+    """
     data = request.json
 
     conn = get_conn()
@@ -55,7 +79,6 @@ def put():
 
     sql = data['sql']
     params = data['params']
-    print(data)
     cur.executemany(sql, params) if len(params) > 0 else cur.execute(sql, params)
 
     conn.commit()
@@ -72,6 +95,16 @@ Non-HTTP Methods
 """
 
 def as_response(payload):
+    """
+    Should be called with all responses to the browser. Will
+    properly set headers and format the response.
+
+    @type  payload: object
+    @param payload: The payload that will be sent to the browswer.
+
+    @rtype:   Flask.Response
+    @reponse: The formatted FlasK Response
+    """
     resp = Response(json.dumps(payload))
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
@@ -130,16 +163,28 @@ def validate_config(config):
 
 
 def load_config():
+    """
+    Will simply load the local configuration into memory and
+    validate it
+    """
     global config
     config = json.loads(open("config.json", "r").read())
     validate_config(config)
 
 
 def get_conn():
+    """
+    Get and return the sqllite connection. Assumes
+    the connection is new every instance. No singleton
+    to manage
+    """
     return sqlite3.connect('main.db')
 
 
 def startup():
+    """
+    Starts. Up.
+    """
     get_conn()
     load_config()
 
