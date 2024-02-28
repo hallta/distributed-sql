@@ -1,6 +1,7 @@
-from flask import Flask, abort,request, redirect
+from flask import Flask, abort, request, Response
 
 import json
+import os
 import requests
 import sqlite3
 
@@ -13,6 +14,22 @@ def not_found(e):
     return "🤷‍♂️"
 
 
+@app.route("/", methods=['GET'])
+def home(path = 'index.html'):
+    root = os.path.abspath(os.path.dirname(__file__))
+    src = os.path.join(root, 'www/{}'.format(path))
+
+    if os.path.isfile(src):
+        return open(src).read()
+    else:
+        abort(404)
+
+
+@app.route("/<string:path>")
+def files(path):
+    return home(path)
+
+
 @app.route("/sql/1/get", methods=['POST'])
 def get():
     data = request.json
@@ -21,7 +38,7 @@ def get():
     cur = conn.cursor()
     cur.execute(data['sql'])
 
-    return cur.fetchall() 
+    return as_response(cur.fetchall())
 
 
 @app.route("/sql/1/put", methods=['POST'])
@@ -40,12 +57,18 @@ def put():
 
     federate(sql, params)
 
-    return "👍"
+    return as_response("👍")
 
 
 """
 Non-HTTP Methods
 """
+
+def as_response(payload):
+    resp = Response(json.dumps(payload))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 
 def federate(sql, params):
     """
