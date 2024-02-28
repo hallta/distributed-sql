@@ -14,8 +14,9 @@ def not_found(e):
     return "🤷‍♂️"
 
 
-@app.route("/", methods=['GET'])
-def home(path = 'index.html'):
+@app.route("/", methods=['GET'], defaults={'path': 'index.html'})
+@app.route("/<path:path>", methods=['GET'])
+def home(path):
     """
     General method for static files. Defaults
     to index.html, but is able to load anything
@@ -32,13 +33,6 @@ def home(path = 'index.html'):
     else:
         return abort(404)
 
-
-@app.route("/<string:path>")
-def files(path):
-    """
-    See def home()
-    """
-    return home(path)
 
 
 @app.route("/sql/1/get", methods=['POST'])
