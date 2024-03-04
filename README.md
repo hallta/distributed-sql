@@ -41,3 +41,7 @@ flowchart LR;
 1. `pip install -r requirements.txt`
 1. Confirm contents of `config.json`
 1. `$(which flask) --app main run --port <port>`
+
+## See stats
+
+1. Visit `127.0.0.1:<port>` and dashboard should load
