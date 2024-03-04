@@ -8,7 +8,8 @@ const air_pressure = {
     getSQL: () => {
         return "select   created, rvalue " +
                "from     sensor_data " +
-               "where    sensor = 'air_pressure' " +
+               "where    sensor = 'temperature' " +
+	       "and      state != 'init' " +
                "order by created;"
     },
 
@@ -39,18 +40,15 @@ const air_pressure = {
             "mark": "point",
             "encoding": {
                 "x": {
-                    "field": "rvalue",
-                    "type": "quantitative",
-                    "scale": { "zero": false }
-                },
-                "y": {
                     "field": "date",
                     "type": "temporal",
                     "scale": { "zero": false }
                 },
-                "color": { "field": "date", "type": "nominal", "legend": null },
-                "legend": null,
-                "size": {"legend": null}
+                "y": {
+                    "field": "rvalue",
+                    "type": "quantitative",
+                    "scale": { "zero": false }
+                }
             }
         }
     }
