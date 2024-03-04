@@ -5,7 +5,7 @@ let registerVizzie = (viz) => {
 }
 
 const loadVizzies = () => {
-    const canvases = ["#viz11"]
+    const canvases = ["#viz11", '#viz12']
     for (const i in vizzies) {
         const canvas = canvases[i]
         const viz = vizzies[i]
