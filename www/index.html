@@ -1,65 +1,33 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-<head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.16.3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.16.3"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
 
-    <script type="text/javascript" src="index.js"></script>
-    <script type="text/javascript" src="viz/air_pressure.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="viz/temperature.js"></script>
+        <script type="text/javascript" src="viz/current_temp.js"></script>
 
-    <script type="text/javascript">
-        registerVizzie(air_pressure)
-    </script>
-</head>
+        <script type="text/javascript">
+            registerVizzie(temperature)
+            registerVizzie(current_temp)
+        </script>
+    </head>
 
-<body>
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-
-                <div class="container">
-                    <div class="row">
-                        Title
-                    </div>
-                    <div class="row">
-                        <div id="viz11"></div>
-                    </div>
-                </div>
-            
-            </div>
-            <div class="col">
-                <div class="container">
-                    <div class="row">
-                        Title
-                    </div>
-                    <div class="row">
-                        <div id="viz12"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="container">
-                    <div class="row">
-                        Title
-                    </div>
-                    <div class="row">
-                        <div id="viz13"></div>
-                    </div>
-                </div>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-9" id="viz11"> </div>
+                <div class="col-3" id="viz12"> </div>
             </div>
         </div>
-    </div>
-    
-</body>
-
+    </body>
 </html>
