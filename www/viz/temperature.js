@@ -10,9 +10,10 @@ const temperature = {
      */
     getSQL: () => {
         return "select   datetime(round(created), 'unixepoch') as created, " +
-               "         round(((rvalue * 9/5) + 32),0) as rvalue " +
+               "         round(((rvalue * 9/5) + 32),0) as rvalue, " +
+               "         sensor " +
                "from     sensor_data " +
-               "where    sensor = 'temperature' " +
+               "where    sensor in ('temperature', 'soil_temp') " +
                "and      state != 'init' " +
                "order by created asc;"
     },
@@ -26,7 +27,8 @@ const temperature = {
         for (const i in data) {
             data[i] = {
                 "date": data[i][0],
-                "rvalue": data[i][1]
+                "rvalue": data[i][1],
+                "sensor": data[i][2]
             }
 
             max = (max == 0 || max < data[i].rvalue) ? data[i].rvalue : max
@@ -55,6 +57,9 @@ const temperature = {
                     "field": "rvalue",
                     "type": "quantitative",
                     "scale": {"domain": [min, max]}
+                },
+                "color": {
+                    "field": "sensor"
                 }
             }
         }
