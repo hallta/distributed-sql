@@ -31,9 +31,7 @@ const loadVizzies = () => {
 }
 
 $(document).ready(() => {
-    const loop = () => {
-        loadVizzies()
-    }
+    const loop = () => { loadVizzies() }
 
     setInterval(loop, 60000)
     loop()
