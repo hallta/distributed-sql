@@ -5,10 +5,12 @@ let registerVizzie = (viz) => {
 }
 
 const loadVizzies = () => {
-    const canvases = ["#viz11", '#viz12']
+    const canvases = ['#viz11', '#viz12',
+                      '#viz21', '#viz22']
     for (const i in vizzies) {
         const canvas = canvases[i]
         const viz = vizzies[i]
+        if (!canvas || !viz) continue;
 
         $.ajax({
             type: 'POST',
