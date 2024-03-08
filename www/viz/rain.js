@@ -11,7 +11,7 @@ const rain = {
                "from     sensor_data " +
                "where    sensor = 'rain_in' " +
                "and      state != 'init' " +
-               "order by created asc " + 
+               "order by created asc " +
                "limit 2880;"
     },
 

@@ -15,7 +15,7 @@ const temperature = {
                "from     sensor_data " +
                "where    sensor in ('temperature', 'soil_temp') " +
                "and      state != 'init' " +
-               "order by created asc " + 
+               "order by created asc " +
                "limit 2880;"
     },
 
